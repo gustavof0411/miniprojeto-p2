@@ -10,6 +10,7 @@ public class Historia {
                 Personagem rei = new Personagem("Rei Salaham", 100);
                 Personagem magoDoMal = new Personagem("Mago do Mal", 100);
 
+                // Escolha
                 int caminhoSeguido = 0;
 
                 // Capítulo 1
