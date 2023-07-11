@@ -22,39 +22,37 @@ public class Capitulo {
         this.vida = vida;
     }
 
+    public ArrayList<String> retornaArray() {
+        return this.arrayEscolhas;
+    }
+    
     public void mostrar1(Scanner continuar) {
         if (this.nome != null) {
             System.out.println(this.nome);
             continuar.nextLine();
         }
         System.out.println(this.texto1);
-        continuar.nextLine();
     }
 
     public void mostrar2(Scanner continuar) {
         if (this.texto2 != null) {
             System.out.println(texto2);
         }
-        for (int escolhas = 0; escolhas < arrayEscolhas.size(); escolhas++) {
-            if (arrayEscolhas.get(escolhas) != null) {
-                System.out.println(arrayEscolhas.get(escolhas));
-            }
-        }
     }
 
-    public int escolher(Scanner continuar, String escolha1, String escolha2) {
+    public int escolher(Scanner continuar, ArrayList<String> arrayEscolhas) {
         String digitado = continuar.nextLine();
-        int retorno = 0;
-        while (!digitado.equalsIgnoreCase(escolha1) && !digitado.equalsIgnoreCase(escolha2)) {
+        int retorno = -1;
+        while (!digitado.equalsIgnoreCase(arrayEscolhas.get(0)) && !digitado.equalsIgnoreCase(arrayEscolhas.get(1))) {
             System.out.println("Certifique-se se digitou corretamente.");
             System.out.print("Digite novamente aqui:");
             digitado = continuar.nextLine();
         }
 
-        if (digitado.equalsIgnoreCase(escolha1)) {
+        if (digitado.equalsIgnoreCase(arrayEscolhas.get(0))) {
+            retorno = 0;
+        } else if (digitado.equalsIgnoreCase(arrayEscolhas.get(1))) {
             retorno = 1;
-        } else if (digitado.equalsIgnoreCase(escolha2)) {
-            retorno = 2;
         }
         return retorno;
     }
