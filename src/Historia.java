@@ -63,7 +63,7 @@ public class Historia {
                         Capitulo capitulo2 = new Capitulo("[CAPÍTULO 2 - A JORNADA]",
                                         "Você aceita o convite do rei e parte para recuperar o"
                                                         + " Anel do Poder. Há dois caminhos para seguir: O da direita é mais seguro, porém é mais longo. O da esquerda é"
-                                                        + " o mais rápido, porém com muito inimigos. Qual caminnho seguir? \n IR PELA DIREITA - DIGITE \"DIREITA\""
+                                                        + " o mais rápido, porém com muito inimigos. Qual caminho seguir? \n IR PELA DIREITA - DIGITE \"DIREITA\""
                                                         + "\n IR PELA ESQUERDA - DIGITE \"ESQUERDA\"",
                                         null, "esquerda", "direita", protagonista, protagonista.vida());
                         capitulo2.mostrar1(continuar);
@@ -123,7 +123,7 @@ public class Historia {
                                                 null, null, protagonista,
                                                 protagonista.vida());
                                 capitulo3_2.mostrar1(continuar);
-                                protagonista.atacado(protagonista, protagonista.vida());
+                                protagonista.atacado(protagonista, 50);
                                 capitulo3_2.mostrar2(continuar);
                                 System.out.println("[FINAL 1 - O ANEL É RECUPERADO]");
                         }

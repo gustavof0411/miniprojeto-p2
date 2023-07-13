@@ -11,7 +11,8 @@ public class Capitulo {
     int vida;
     ArrayList<String> arrayEscolhas;
 
-    public Capitulo(String nome, String texto1, String texto2, String escolha1, String escolha2 , Personagem personagem, int vida) {
+    public Capitulo(String nome, String texto1, String texto2, String escolha1,
+    String escolha2 , Personagem personagem, int vida) {
         this.nome = nome;
         this.texto1 = texto1;
         this.texto2 = texto2;

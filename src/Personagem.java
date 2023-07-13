@@ -16,9 +16,9 @@ public class Personagem {
     }
 
     public String atacado(Personagem personagem, int moduloDoAtaque) {
-        this.vida = (personagem.vida() - moduloDoAtaque);
+        this.vida = personagem.vida() - moduloDoAtaque;
         System.out.println(personagem.nome() + " perde " + moduloDoAtaque + " pontos de vida!");
-        System.out.println(nome + " agora possui " + (vida) + " pontos de vida.");
+        System.out.println(personagem.nome() + " agora possui " + personagem.vida() + " pontos de vida.");
         if (personagem.vida() == 0) {
             System.out.println(personagem.nome() + " é derrotado.");
         }
