@@ -8,13 +8,12 @@ public class Capitulo {
     int vida;
     ArrayList<Escolha> arrayEscolhas;
 
-    public Capitulo(String nome, String texto, Personagem personagem, int vida, String consequencia) {
+    public Capitulo(String nome, String texto, Personagem personagem, int vida) {
         this.nome = nome;
         this.texto = texto;
         this.arrayEscolhas = new ArrayList<Escolha>();
         this.personagem = personagem;
         this.vida = vida;
-        this.consequencia = consequencia;
     }
 
     public ArrayList<Escolha> retornaArray() {
