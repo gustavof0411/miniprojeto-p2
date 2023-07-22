@@ -22,10 +22,6 @@ public class Capitulo {
         return this.arrayEscolhas;
     }
 
-    public Capitulo capituloSemEscolha(int escolhaAutomatica) {
-        return this.arrayEscolhas.get(escolhaAutomatica).proximo;
-    }
-
     public void mostrar(Scanner continuar) {
         if (this.nome != null) {
             System.out.println(this.nome);
@@ -64,7 +60,6 @@ public class Capitulo {
         if (this.finalCap != null) {
             escolhido = -1;
             System.out.println(finalCap);
-            System.out.println("Fim da história!");
             System.exit(0);
         } else {
             escolhido = this.escolher(continuar, arrayEscolhas);

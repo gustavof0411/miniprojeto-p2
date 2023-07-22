@@ -71,6 +71,8 @@ public class Historia {
                                                 + " de volta para o Rei de forma segura.",
                                 protagonista, protagonista.vida(), "[FINAL 1 - O ANEL É RECUPERADO]");
 
+                // Atribuições das Escolhas
+
                 capitulo1.arrayEscolhas.addAll(Arrays.asList(
                                 new Escolha("s", capitulo2),
                                 new Escolha("n", capitulo1_1)));
