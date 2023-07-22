@@ -7,17 +7,23 @@ public class Capitulo {
     Personagem personagem;
     int vida;
     ArrayList<Escolha> arrayEscolhas;
+    String finalCap;
 
-    public Capitulo(String nome, String texto, Personagem personagem, int vida) {
+    public Capitulo(String nome, String texto, Personagem personagem, int vida, String finalCap) {
         this.nome = nome;
         this.texto = texto;
         this.arrayEscolhas = new ArrayList<Escolha>();
         this.personagem = personagem;
         this.vida = vida;
+        this.finalCap = finalCap;
     }
 
     public ArrayList<Escolha> retornaArray() {
         return this.arrayEscolhas;
+    }
+
+    public Capitulo capituloSemEscolha(int escolhaAutomatica) {
+        return this.arrayEscolhas.get(escolhaAutomatica).proximo;
     }
 
     public void mostrar(Scanner continuar) {
@@ -29,29 +35,53 @@ public class Capitulo {
     }
 
     public int escolher(Scanner continuar, ArrayList<Escolha> arrayEscolhas) {
-        String digitado = continuar.nextLine();
         boolean escolhaValida = false;
         int escolhido = -1;
-        while (!escolhaValida) {
+        if (arrayEscolhas.get(0).texto != null) {
+            String digitado = continuar.nextLine();
+            while (!escolhaValida) {
 
-            for (int i = 0; i < arrayEscolhas.size(); i++) {
-                if (digitado.equalsIgnoreCase(arrayEscolhas.get(i).texto)) {
-                    escolhido = i;
-                    escolhaValida = true;
-                    break;
+                for (int i = 0; i < arrayEscolhas.size(); i++) {
+                    if (digitado.equalsIgnoreCase(arrayEscolhas.get(i).texto)) {
+                        escolhido = i;
+                        escolhaValida = true;
+                        break;
+                    }
                 }
-            }
-            if (!escolhaValida) {
-                System.out.println("Certifique-se se digitou corretamente.");
-                System.out.print("Digite novamente aqui:");
-                digitado = continuar.nextLine();
+                if (!escolhaValida) {
+                    System.out.println("Certifique-se se digitou corretamente.");
+                    System.out.print("Digite novamente aqui:");
+                    digitado = continuar.nextLine();
+                }
             }
         }
         return escolhido;
     }
 
-    void executar(Scanner continuar, ArrayList<Escolha> arrayEscolhas) {
+    int executar(Scanner continuar, ArrayList<Escolha> arrayEscolhas) {
         this.mostrar(continuar);
-        this.escolher(continuar, arrayEscolhas);
+        int escolhido;
+        if (this.finalCap != null) {
+            escolhido = -1;
+            System.out.println(finalCap);
+            System.out.println("Fim da história!");
+            System.exit(0);
+        } else {
+            escolhido = this.escolher(continuar, arrayEscolhas);
+            if (escolhido >= 0 && escolhido < arrayEscolhas.size()) {
+                Capitulo proximoCapitulo = arrayEscolhas.get(escolhido).proximo;
+                if (proximoCapitulo.arrayEscolhas.get(escolhido).texto == null) {
+                    Capitulo escolhaAutomatica = proximoCapitulo.arrayEscolhas.get(0).proximo;
+                    proximoCapitulo.executar(continuar, proximoCapitulo.retornaArray());
+                    escolhaAutomatica.mostrar(continuar);
+                    if (escolhaAutomatica.arrayEscolhas.get(0).proximo == null) {
+                        System.out.println(escolhaAutomatica.finalCap);
+                    }
+                } else {
+                    proximoCapitulo.executar(continuar, proximoCapitulo.retornaArray());
+                }
+            }
+        }
+        return escolhido;
     }
 }
