@@ -2,43 +2,78 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Capitulo {
-    String nome;
-    String texto;
-    Personagem personagem;
-    int vida;
-    ArrayList<Escolha> arrayEscolhas;
-    String finalCap;
+    private String nome;
+    private String texto;
+    private Personagem personagem;
+    private int vida;
+    private String consequencia;
+    private ArrayList<Escolha> arrayEscolhas;
+    private String finalCap;
 
-    public Capitulo(String nome, String texto, Personagem personagem, int vida, String finalCap) {
+    public Capitulo(String nome, String texto, Personagem personagem, int vida, String consequencia, String finalCap) {
         this.nome = nome;
         this.texto = texto;
         this.arrayEscolhas = new ArrayList<Escolha>();
         this.personagem = personagem;
         this.vida = vida;
+        this.consequencia = consequencia;
         this.finalCap = finalCap;
     }
 
-    public ArrayList<Escolha> retornaArray() {
+    // Getters
+    private String getNome() {
+        return this.nome;
+    }
+
+    private String getTexto() {
+        return this.texto;
+    }
+
+    private ArrayList<Escolha> getArray() {
         return this.arrayEscolhas;
     }
 
-    public void mostrar(Scanner continuar) {
-        if (this.nome != null) {
-            System.out.println(this.nome);
-            continuar.nextLine();
-        }
-        System.out.println(this.texto);
+    public Personagem getPersonagem() {
+        return this.personagem;
     }
 
-    public int escolher(Scanner continuar, ArrayList<Escolha> arrayEscolhas) {
+    public int getVida() {
+        return this.vida;
+    }
+
+    private String getConsequencia() {
+        return this.consequencia;
+    }
+
+    private String getFinalCap() {
+        return this.finalCap;
+    }
+
+    // Setters
+    public void setArray(ArrayList<Escolha> escolhas) {
+        this.arrayEscolhas = escolhas;
+    }
+
+    // Métodos
+
+    private void mostrar(Scanner continuar) {
+        if (getNome() != null) {
+            System.out.println(getNome());
+            continuar.nextLine();
+        }
+
+        System.out.println(getTexto());
+    }
+
+    private int escolher(Scanner continuar) {
         boolean escolhaValida = false;
         int escolhido = -1;
-        if (arrayEscolhas.get(0).texto != null) {
+        if (getArray().get(0).getTexto() != null) {
             String digitado = continuar.nextLine();
             while (!escolhaValida) {
 
-                for (int i = 0; i < arrayEscolhas.size(); i++) {
-                    if (digitado.equalsIgnoreCase(arrayEscolhas.get(i).texto)) {
+                for (int i = 0; i < getArray().size(); i++) {
+                    if (digitado.equalsIgnoreCase(getArray().get(i).getTexto())) {
                         escolhido = i;
                         escolhaValida = true;
                         break;
@@ -54,26 +89,30 @@ public class Capitulo {
         return escolhido;
     }
 
-    int executar(Scanner continuar, ArrayList<Escolha> arrayEscolhas) {
+    public int executar(Scanner continuar) {
+
         this.mostrar(continuar);
+        if (getConsequencia() != null) {
+            System.out.println(getConsequencia());
+        }
         int escolhido;
-        if (this.finalCap != null) {
+        if (getFinalCap() != null) {
             escolhido = -1;
-            System.out.println(finalCap);
+            System.out.println(getFinalCap());
             System.exit(0);
         } else {
-            escolhido = this.escolher(continuar, arrayEscolhas);
-            if (escolhido >= 0 && escolhido < arrayEscolhas.size()) {
-                Capitulo proximoCapitulo = arrayEscolhas.get(escolhido).proximo;
-                if (proximoCapitulo.arrayEscolhas.get(escolhido).texto == null) {
-                    Capitulo escolhaAutomatica = proximoCapitulo.arrayEscolhas.get(0).proximo;
-                    proximoCapitulo.executar(continuar, proximoCapitulo.retornaArray());
+            escolhido = this.escolher(continuar);
+            if (escolhido >= 0 && escolhido < getArray().size()) {
+                Capitulo proximoCapitulo = getArray().get(escolhido).getProximo();
+                if (proximoCapitulo.getArray().get(escolhido).getTexto() == null) {
+                    Capitulo escolhaAutomatica = proximoCapitulo.getArray().get(0).getProximo();
+                    proximoCapitulo.executar(continuar);
                     escolhaAutomatica.mostrar(continuar);
-                    if (escolhaAutomatica.arrayEscolhas.get(0).proximo == null) {
-                        System.out.println(escolhaAutomatica.finalCap);
+                    if (escolhaAutomatica.arrayEscolhas.get(0).getProximo() == null) {
+                        System.out.println(escolhaAutomatica.getFinalCap());
                     }
                 } else {
-                    proximoCapitulo.executar(continuar, proximoCapitulo.retornaArray());
+                    proximoCapitulo.executar(continuar);
                 }
             }
         }

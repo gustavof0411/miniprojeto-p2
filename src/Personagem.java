@@ -1,34 +1,23 @@
 public class Personagem {
-    String nome;
-    int vida;
+    private String nome;
+    private int vida;
 
     public Personagem(String nome, int vida) {
         this.nome = nome;
         this.vida = vida;
     }
 
-    public String nome() {
+    // Getters
+    public String getNome() {
         return nome;
     }
 
-    public int vida() {
-        return vida;
+    public int getVida() {
+        return this.vida;
     }
 
-    public String atacado(Personagem personagem, int moduloDoAtaque, boolean exibirAtk) {
-        this.vida = personagem.vida() - moduloDoAtaque;
-        if (exibirAtk == true) {
-            exibirAtk(personagem, moduloDoAtaque);
-        }
-        return null;
-    }
-
-    public String exibirAtk(Personagem personagem, int moduloDoAtaque) {
-        System.out.println(personagem.nome() + " perde " + moduloDoAtaque + " pontos de vida!");
-        System.out.println(personagem.nome() + " agora possui " + personagem.vida() + " pontos de vida.");
-        if (personagem.vida() == 0) {
-            System.out.println(personagem.nome() + " é derrotado.");
-        }        
-        return null;
+    public String getMensagemAtk(int moduloDoAtaque) {
+        return getNome() + " perde " + moduloDoAtaque + " pontos de vida!\n" +
+                getNome() + " agora possui " + (this.vida - moduloDoAtaque) + " pontos de vida.\n";
     }
 }
