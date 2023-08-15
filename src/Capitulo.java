@@ -1,7 +1,8 @@
 import java.util.Scanner;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Capitulo {
+public class Capitulo implements Serializable {
     private String nome;
     private String texto;
     private Personagem personagem;
@@ -21,7 +22,7 @@ public class Capitulo {
     }
 
     // Getters
-    private String getNome() {
+    public String getNome() {
         return this.nome;
     }
 
@@ -52,6 +53,30 @@ public class Capitulo {
     // Setters
     public void setArray(ArrayList<Escolha> escolhas) {
         this.arrayEscolhas = escolhas;
+    }
+
+    public void setConsequencia(String consequencia) {
+        this.consequencia = consequencia;
+    }
+
+    public void setFinalCap(String finalCap) {
+        this.finalCap = finalCap;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setPersonagem(Personagem personagem) {
+        this.personagem = personagem;
+    }
+
+    public void setTexto(String texto) {
+        this.texto = texto;
+    }
+
+    public void setVida(int vida) {
+        this.vida = vida;
     }
 
     // Métodos

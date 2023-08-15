@@ -1,4 +1,6 @@
-public class Escolha {
+import java.io.Serializable;
+
+public class Escolha implements Serializable {
     private String texto;
     private Capitulo proximo;
 
