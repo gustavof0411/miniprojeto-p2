@@ -18,16 +18,8 @@ public class Personagem implements Serializable {
         return this.vida;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public void setVida(int vida) {
-        this.vida = vida;
-    }
-
-    public String getMensagemAtk(Personagem personagem, int moduloDoAtaque) {
-        return personagem.getNome() + " perde " + moduloDoAtaque + " pontos de vida!\n" +
-                personagem.getNome() + " agora possui " + (personagem.getVida() - moduloDoAtaque) + " pontos de vida.\n";
+    public String getMensagemAtk(int moduloDoAtaque) {
+        return getNome() + " perde " + moduloDoAtaque + " pontos de vida!\n" +
+                getNome() + " agora possui " + (this.vida - moduloDoAtaque) + " pontos de vida.\n";
     }
 }

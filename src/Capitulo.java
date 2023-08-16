@@ -82,11 +82,8 @@ public class Capitulo implements Serializable {
     // Métodos
 
     private void mostrar(Scanner continuar) {
-        if (getNome() != null) {
-            System.out.println(getNome());
-            continuar.nextLine();
-        }
-
+        System.out.println(getNome());
+        continuar.nextLine();
         System.out.println(getTexto());
     }
 
@@ -115,8 +112,8 @@ public class Capitulo implements Serializable {
     }
 
     public int executar(Scanner continuar) {
-
         this.mostrar(continuar);
+        continuar.nextLine();
         if (getConsequencia() != null) {
             System.out.println(getConsequencia());
         }
