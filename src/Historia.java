@@ -1,29 +1,40 @@
-import java.io.Serializable;
 import java.util.Scanner;
 import java.util.HashMap;
 
-public class Historia implements Serializable {
+public class Historia {
         public static void main(String[] args) throws Exception {
-                // Carregar Progresso
-                boolean saveExistente = Saves.carregarProgresso(Saves.verificaSaveExistente());
-
                 // Escaneador
                 Scanner continuar = new Scanner(System.in);
+                ObterDadosDeArquivo instanciaDaClasseObterDadosDeArquivo = new ObterDadosDeArquivo();
+                HashMap<String, Personagem> personagens = ObterDadosDeArquivo.carregarPersonagem();
+                HashMap<String, Capitulo> capitulos = ObterDadosDeArquivo.carregarCapitulo(personagens, continuar);
 
-                // Serializadores e Desserializadores
-                Serializador serializador = new Serializador();
-                Desserializador desserializador = new Desserializador(); // adicional - a remover
-                serializador.serializadorDePersonagem();
-                HashMap<String, Personagem> personagens = desserializador.desserializadorDePersonagem();
-                serializador.serializadorDeCapitulo(personagens); // adicional - a remover
-                HashMap<String, Capitulo> capitulos = desserializador.desserializadorDeCapitulo();
+                Capitulo inicial;
+                int existeSave = instanciaDaClasseObterDadosDeArquivo.verificaSave();
+                if (existeSave == 1) {
+                        System.out.println("Foi detectado um progresso já existente. Deseja carregar o progresso?");
+                        System.out.println("CARREGAR - DIGITE \"s\"");
+                        System.out.println("INICIAR NOVO JOGO - DIGITE \"n\"");
+                        System.out.print("Digite aqui:");
+                        String querCarregar = continuar.nextLine();
+                        while (!querCarregar.equalsIgnoreCase("s") && !querCarregar.equalsIgnoreCase("n")) {
+                                System.out.println("Certifique-se se digitou corretamente.");
+                                System.out.print("Digite novamente aqui:");
+                                querCarregar = continuar.nextLine();
+                        }
+                        if (querCarregar.equalsIgnoreCase("s")) {
+                                Capitulo capituloSave = ObterDadosDeArquivo
+                                                .desserializadorDeCapitulo("rsc/saves/capituloSave.txt");
+                                inicial = capitulos.get(capituloSave.getNome());
+                                inicial.executar(continuar, capitulos);
+                        } else {
+                                inicial = capitulos.get("[CAPÍTULO 1 - O INÍCIO]");
+                                inicial.executar(continuar, capitulos);
+                        }
+                } else {
+                        inicial = capitulos.get("[CAPÍTULO 1 - O INÍCIO]");
+                        inicial.executar(continuar, capitulos);
 
-                if (saveExistente) {
-                        System.out.println("aaa");
                 }
-
-                // Início do jogo
-                Capitulo inicial = capitulos.get("[CAPÍTULO 1 - O INÍCIO]");
-                inicial.executar(continuar);
         }
 }

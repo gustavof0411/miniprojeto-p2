@@ -1,6 +1,7 @@
 import java.util.Scanner;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Capitulo implements Serializable {
     private String nome;
@@ -91,6 +92,7 @@ public class Capitulo implements Serializable {
         boolean escolhaValida = false;
         int escolhido = -1;
         if (getArray().get(0).getTexto() != null) {
+            System.out.print("Digite aqui:");
             String digitado = continuar.nextLine();
             while (!escolhaValida) {
 
@@ -111,9 +113,9 @@ public class Capitulo implements Serializable {
         return escolhido;
     }
 
-    public int executar(Scanner continuar) {
+    public int executar(Scanner continuar, HashMap<String, Capitulo> capitulos) {
+        ObterDadosDeArquivo.serializadorDeCapitulo(capitulos.get(getNome()));
         this.mostrar(continuar);
-        continuar.nextLine();
         if (getConsequencia() != null) {
             System.out.println(getConsequencia());
         }
@@ -128,13 +130,14 @@ public class Capitulo implements Serializable {
                 Capitulo proximoCapitulo = getArray().get(escolhido).getProximo();
                 if (proximoCapitulo.getArray().get(escolhido).getTexto() == null) {
                     Capitulo escolhaAutomatica = proximoCapitulo.getArray().get(0).getProximo();
-                    proximoCapitulo.executar(continuar);
+                    proximoCapitulo.executar(continuar, capitulos);
                     escolhaAutomatica.mostrar(continuar);
                     if (escolhaAutomatica.arrayEscolhas.get(0).getProximo() == null) {
+                        System.out.println(getPersonagem().getMensagemAtk(getPersonagem(), getVida()));
                         System.out.println(escolhaAutomatica.getFinalCap());
                     }
                 } else {
-                    proximoCapitulo.executar(continuar);
+                    proximoCapitulo.executar(continuar, capitulos);
                 }
             }
         }

@@ -1,6 +1,6 @@
 import java.io.Serializable;
 
-public class Escolha implements Serializable {
+public class Escolha implements Serializable{
     private String texto;
     private Capitulo proximo;
 
@@ -16,5 +16,11 @@ public class Escolha implements Serializable {
 
     public Capitulo getProximo() {
         return this.proximo;
+    }
+    public void setProximo(Capitulo proximo) {
+        this.proximo = proximo;
+    }
+    public void setTexto(String texto) {
+        this.texto = texto;
     }
 }
