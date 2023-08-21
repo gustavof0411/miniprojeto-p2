@@ -163,7 +163,7 @@ public class ObterDadosDeArquivo {
         }
     }
 
-    public int verificaSave() {
+    public static int verificaSave() {
         int retorno = 0;
         try {
             File pasta = new File("rsc/saves");

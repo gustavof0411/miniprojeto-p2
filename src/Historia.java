@@ -3,14 +3,12 @@ import java.util.HashMap;
 
 public class Historia {
         public static void main(String[] args) throws Exception {
-                // Escaneador
                 Scanner continuar = new Scanner(System.in);
-                ObterDadosDeArquivo instanciaDaClasseObterDadosDeArquivo = new ObterDadosDeArquivo();
                 HashMap<String, Personagem> personagens = ObterDadosDeArquivo.carregarPersonagem();
                 HashMap<String, Capitulo> capitulos = ObterDadosDeArquivo.carregarCapitulo(personagens, continuar);
-
                 Capitulo inicial;
-                int existeSave = instanciaDaClasseObterDadosDeArquivo.verificaSave();
+
+                int existeSave = ObterDadosDeArquivo.verificaSave();
                 if (existeSave == 1) {
                         System.out.println("Foi detectado um progresso já existente. Deseja carregar o progresso?");
                         System.out.println("CARREGAR - DIGITE \"s\"");
