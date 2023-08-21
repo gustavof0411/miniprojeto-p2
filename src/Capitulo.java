@@ -1,7 +1,9 @@
 import java.util.Scanner;
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 
-public class Capitulo {
+public class Capitulo implements Serializable {
     private String nome;
     private String texto;
     private Personagem personagem;
@@ -21,7 +23,7 @@ public class Capitulo {
     }
 
     // Getters
-    private String getNome() {
+    public String getNome() {
         return this.nome;
     }
 
@@ -54,14 +56,35 @@ public class Capitulo {
         this.arrayEscolhas = escolhas;
     }
 
+    public void setConsequencia(String consequencia) {
+        this.consequencia = consequencia;
+    }
+
+    public void setFinalCap(String finalCap) {
+        this.finalCap = finalCap;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setPersonagem(Personagem personagem) {
+        this.personagem = personagem;
+    }
+
+    public void setTexto(String texto) {
+        this.texto = texto;
+    }
+
+    public void setVida(int vida) {
+        this.vida = vida;
+    }
+
     // Métodos
 
     private void mostrar(Scanner continuar) {
-        if (getNome() != null) {
-            System.out.println(getNome());
-            continuar.nextLine();
-        }
-
+        System.out.println(getNome());
+        continuar.nextLine();
         System.out.println(getTexto());
     }
 
@@ -69,6 +92,7 @@ public class Capitulo {
         boolean escolhaValida = false;
         int escolhido = -1;
         if (getArray().get(0).getTexto() != null) {
+            System.out.print("Digite aqui:");
             String digitado = continuar.nextLine();
             while (!escolhaValida) {
 
@@ -89,8 +113,8 @@ public class Capitulo {
         return escolhido;
     }
 
-    public int executar(Scanner continuar) {
-
+    public int executar(Scanner continuar, HashMap<String, Capitulo> capitulos) {
+        ObterDadosDeArquivo.serializadorDeCapitulo(capitulos.get(getNome()));
         this.mostrar(continuar);
         if (getConsequencia() != null) {
             System.out.println(getConsequencia());
@@ -106,13 +130,14 @@ public class Capitulo {
                 Capitulo proximoCapitulo = getArray().get(escolhido).getProximo();
                 if (proximoCapitulo.getArray().get(escolhido).getTexto() == null) {
                     Capitulo escolhaAutomatica = proximoCapitulo.getArray().get(0).getProximo();
-                    proximoCapitulo.executar(continuar);
+                    proximoCapitulo.executar(continuar, capitulos);
                     escolhaAutomatica.mostrar(continuar);
                     if (escolhaAutomatica.arrayEscolhas.get(0).getProximo() == null) {
+                        System.out.println(getPersonagem().getMensagemAtk(getPersonagem(), getVida()));
                         System.out.println(escolhaAutomatica.getFinalCap());
                     }
                 } else {
-                    proximoCapitulo.executar(continuar);
+                    proximoCapitulo.executar(continuar, capitulos);
                 }
             }
         }
